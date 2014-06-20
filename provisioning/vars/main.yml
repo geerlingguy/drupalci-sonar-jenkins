@@ -1,0 +1,73 @@
+---
+ntp_timezone: America/Chicago
+workspace: /root
+
+firewall_allowed_tcp_ports:
+  - "22"
+  - "25"
+  - "80"
+  - "443"
+  - "8080"
+  - "9000"
+firewall_forwarded_tcp_ports:
+  - { src: "80", dest: "9000" }
+
+java_packages:
+  - java-1.7.0-openjdk
+
+# Jenkins Configuration
+jenkins_jar_location: /opt/jenkins-cli.jar
+jenkins_plugins:
+  - phing
+  - git
+  - sonar
+  - ssh
+
+# Sonar Configuration.
+sonar_host: 127.0.0.1
+sonar_port: 9000
+sonar_mysql_host: "{{ sonar_host }}"
+sonar_mysql_port: 3306
+
+sonar_download_url: http://dist.sonar.codehaus.org/sonar-3.7.4.zip
+sonar_version_directory: sonar-3.7.4
+sonar_mysql_allowed_hosts:
+  - "{{ sonar_host }}"
+  - 127.0.0.1
+  - ::1
+  - localhost
+
+sonar_php_plugin_url: http://repository.codehaus.org/org/codehaus/sonar-plugins/php/sonar-php-plugin/1.2/sonar-php-plugin-1.2.jar
+sonar_php_plugin_jar: sonar-php-plugin-1.2.jar
+
+# PHP Configuration.
+php_enablerepo: remi
+php_packages:
+  - php
+  - php-devel
+  - php-xml
+  - php-pear
+  - ImageMagick
+php_memory_limit: "512M"
+php_max_execution_time: "120"
+# Hack to stop restarting Apache.
+php_webserver_daemon: ntpd
+
+php_pear_channels:
+  - pear.phpunit.de
+  - pear.symfony.com
+  - pear.netpirates.net
+  - pear.phpmd.org
+  - pear.pdepend.org
+  - pear.phpdoc.org
+  - pear.phing.info
+php_pear_libraries:
+  - phpunit/PHPUnit
+  - phpunit/phpcpd
+  - phpunit/phploc
+  - phpmd/PHP_PMD
+  - PHP_CodeSniffer
+  - phing/phing
+
+# MySQL Configuration.
+mysql_max_allowed_packet: "32M"

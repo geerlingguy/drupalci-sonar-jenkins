@@ -1,0 +1,26 @@
+---
+# Drupal CI server with Jenkins and SonarQube.
+#
+# @author Jeff Geerling, 2014
+- hosts: drupalci
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - geerlingguy.firewall
+    - geerlingguy.repo-epel
+    - geerlingguy.repo-remi
+    - geerlingguy.ntp
+    - geerlingguy.git
+    - geerlingguy.java
+    - geerlingguy.jenkins
+    - geerlingguy.php
+    - geerlingguy.php-pear
+    - geerlingguy.sonar-runner
+    - geerlingguy.sonar
+
+  tasks:
+    - include: tasks/drupal-cs.yml tags=drupal
+    - include: tasks/jenkins-setup.yml tags=setup
+    - include: tasks/sonar-php.yml tags=sonar

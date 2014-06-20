@@ -1,0 +1,33 @@
+---
+- name: Copy Sonar Jenkins configuration to server.
+  template: >
+    src={{ item.src }}
+    dest={{ item.dest }}
+  with_items:
+    - {
+      src: jenkins/hudson.plugins.sonar.SonarPublisher.xml.j2,
+      dest: /var/lib/jenkins/hudson.plugins.sonar.SonarPublisher.xml
+    }
+    - {
+      src: jenkins/hudson.plugins.sonar.SonarRunnerInstallation.xml.j2,
+      dest: /var/lib/jenkins/hudson.plugins.sonar.SonarRunnerInstallation.xml
+    }
+  notify: restart jenkins
+
+- name: Copy in the Drupal7 Jenkins job.
+  copy: >
+    src=jenkins/Drupal7.xml
+    dest={{ workspace }}/Drupal7.xml
+  notify: restart jenkins
+
+# SEE: http://stackoverflow.com/a/9954283/100134
+- name: Import the Jenkins job for Drupal 7.
+  shell: >
+    java -jar {{ jenkins_jar_location }} -s http://{{ inventory_hostname }}:8080/
+    create-job Drupal7 < {{ workspace }}/Drupal7.xml
+  register: import
+  changed_when: "import.stdout and 'already exists' not in import.stdout"
+  # TODO - Also use 'or' condition for initial install... what to expect?
+  # failed: [jenkins] => {"changed": true, "cmd": "java -jar /opt/jenkins-cli.jar -s http://jenkins:8080/ create-job Drupal7 < /root/Drupal7.xml ", "delta": "0:00:01.613581", "end": "2014-01-28 10:39:55.493576", "failed": true, "failed_when_result": true, "item": "", "rc": 0, "start": "2014-01-28 10:39:53.879995", "stdout_lines": []}
+  failed_when: "import.stderr and 'already exists' not in import.stderr"
+  notify: restart jenkins

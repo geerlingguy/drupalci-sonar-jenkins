@@ -1,0 +1,37 @@
+---
+- name: Download Drupal Coder module.
+  get_url: >
+    url=http://ftp.drupal.org/files/projects/coder-7.x-2.x-dev.tar.gz
+    dest={{ workspace }}/coder.tar.gz
+
+- name: Expand Coder module archive.
+  command: >
+    tar -zxf {{ workspace }}/coder.tar.gz
+    creates={{ workspace }}/coder/coder.info
+    chdir={{ workspace }}
+
+- name: Get PEAR's PHP directory.
+  command: pear config-get php_dir
+  register: pear_php_dir
+  failed_when: false
+  changed_when: false
+
+- name: Move Drupal standards into CodeSniffer directory.
+  command: >
+    cp -r {{ workspace }}/coder/coder_sniffer/Drupal {{ pear_php_dir.stdout }}/PHP/CodeSniffer/Standards/Drupal
+    creates={{ pear_php_dir.stdout }}/PHP/CodeSniffer/Standards/Drupal/ruleset.xml
+  sudo: yes
+
+- name: Delete certain standards we don't yet need or use.
+  file: >
+    path=/usr/share/pear/PHP/CodeSniffer/Standards/{{ item }}
+    state=absent
+  with_items:
+    # - Generic
+    - MySource
+    - PHPCS
+    # - PEAR
+    # - PSR1
+    # - PSR2
+    # - Squiz
+    - Zend
