@@ -1,12 +1,15 @@
 ---
 ntp_timezone: America/Chicago
+ntp_enabled: false
 workspace: /root
 
+# Each version supported requires DrupalX.xml and sonar-x.properties files.
 drupal_versions:
   - "6"
   - "7"
   - "8"
 
+# Firewall configuration.
 firewall_allowed_tcp_ports:
   - "22"
   - "25"
@@ -16,11 +19,18 @@ firewall_allowed_tcp_ports:
   - "9000"
 firewall_forwarded_tcp_ports:
   - { src: "80", dest: "9000" }
+firewall_additional_rules:
+  - "iptables -A INPUT -p tcp --dport 4949 -s 167.88.120.81 -j ACCEPT"
 
+# Munin configuration.
+munin_node_allowed_ips:
+  - '^167\.88\.120\.81$'
+
+# Java configuration.
 java_packages:
   - java-1.7.0-openjdk
 
-# Jenkins Configuration
+# Jenkins configuration.
 jenkins_jar_location: /opt/jenkins-cli.jar
 jenkins_plugins:
   - phing
@@ -28,24 +38,20 @@ jenkins_plugins:
   - sonar
   - ssh
 
-# Sonar Configuration.
+# Sonar configuration.
 # sonar_host: localhost (set in inventory)
 sonar_port: 9000
-sonar_mysql_host: "{{ sonar_host }}"
+# sonar_mysql_host: "{{ sonar_host }}" (set in inventory)
 sonar_mysql_port: 3306
 
 sonar_download_url: http://dist.sonar.codehaus.org/sonar-3.7.4.zip
 sonar_version_directory: sonar-3.7.4
-sonar_mysql_allowed_hosts:
-  - "{{ sonar_host }}"
-  - 127.0.0.1
-  - ::1
-  - localhost
+#sonar_mysql_allowed_hosts: [] (set in host_vars)
 
 sonar_php_plugin_url: http://repository.codehaus.org/org/codehaus/sonar-plugins/php/sonar-php-plugin/1.2/sonar-php-plugin-1.2.jar
 sonar_php_plugin_jar: sonar-php-plugin-1.2.jar
 
-# PHP Configuration.
+# PHP configuration.
 php_enablerepo: remi
 php_packages:
   - php
@@ -74,5 +80,5 @@ php_pear_libraries:
   - PHP_CodeSniffer
   - phing/phing
 
-# MySQL Configuration.
+# MySQL configuration.
 mysql_max_allowed_packet: "32M"

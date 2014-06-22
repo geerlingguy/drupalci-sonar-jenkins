@@ -11,7 +11,7 @@
 - name: Check if Sonar's database is already configured correctly.
   shell: >
     mysql -u {{ sonar_mysql_user }} -p{{ sonar_mysql_password }} {{ sonar_mysql_database }} -e
-    "SELECT COUNT(*) FROM properties WHERE text_value='Drupal 7'"
+    "SELECT COUNT(*) FROM properties WHERE text_value='Drupal'"
   register: sonar_setup
   changed_when: false
   failed_when: false

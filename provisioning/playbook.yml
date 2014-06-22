@@ -12,6 +12,7 @@
     - geerlingguy.repo-epel
     - geerlingguy.repo-remi
     - geerlingguy.ntp
+    - geerlingguy.munin-node
     - geerlingguy.git
     - geerlingguy.java
     - geerlingguy.jenkins
@@ -24,3 +25,6 @@
     - include: tasks/drupal-cs.yml tags=drupal
     - include: tasks/jenkins-setup.yml tags=setup
     - include: tasks/sonar-php.yml tags=sonar
+
+    - name: Ensure Apache is not running.
+      service: name=httpd state=stopped
