@@ -16,7 +16,8 @@
         <skipUpstreamCause>false</skipUpstreamCause>
         <envVar></envVar>
       </triggers>
-      <sonarLogin></sonarLogin>
+      <sonarLogin>{{ jenkins_sonar_login }}</sonarLogin>
+      <sonarPassword>{{ jenkins_sonar_password }}</sonarPassword>
     </hudson.plugins.sonar.SonarInstallation>
   </installations>
 </hudson.plugins.sonar.SonarPublisher_-DescriptorImpl>
