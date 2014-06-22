@@ -2,12 +2,9 @@
 
 TODO: Insert screenshot.
 
-This Vagrant configuration (with Ansible for provisioning) will install Jenkins, PHP, SonarQube, and a default Drupal 7 CI profile for code analysis (along with a bunch of other required software).
+This Vagrant configuration (with Ansible for provisioning) will install Jenkins, PHP, SonarQube, and Drupal CI profiles for code analysis (along with a bunch of other required software).
 
-## TODO
-
-  - Set mysql root password
-  - Set better sonar database settings? (at least password)
+View a live demo at [drupalci.midwesternmac.com](http://drupalci.midwesternmac.com/).
 
 ## Quick Start Guide
 
@@ -15,7 +12,8 @@ This Vagrant configuration (with Ansible for provisioning) will install Jenkins,
 
   1. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
   2. Download and install [Vagrant](http://www.vagrantup.com/downloads.html).
-  3. [Mac/Linux only] Install [Ansible](http://docs.ansible.com/intro_installation.html):
+  3. [Mac/Linux only] Install [Ansible](http://docs.ansible.com/intro_installation.html).
+  4. Install Ansible roles: `ansible-galaxy install geerlingguy.firewall, geerlingguy.repo-epel, geerlingguy.repo-remi, geerlingguy.ntp, geerlingguy.git, geerlingguy.java, geerlingguy.jenkins, geerlingguy.php, geerlingguy.php-pear, geerlingguy.sonar-runner, geerlingguy.sonar`
 
 Note for Windows users: *This guide assumes you're on a Mac or Linux host. Windows support may be added when I get a little more time; the main difference is Ansible needs to be bootstrapped from within the VM after it's created. See [JJG-Ansible-Windows](https://github.com/geerlingguy/JJG-Ansible-Windows) for more information.*
 
