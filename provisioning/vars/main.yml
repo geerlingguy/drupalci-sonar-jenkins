@@ -29,7 +29,7 @@ jenkins_plugins:
   - ssh
 
 # Sonar Configuration.
-sonar_host: localhost
+# sonar_host: localhost (set in inventory)
 sonar_port: 9000
 sonar_mysql_host: "{{ sonar_host }}"
 sonar_mysql_port: 3306
