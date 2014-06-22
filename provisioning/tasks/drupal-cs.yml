@@ -35,3 +35,16 @@
     # - PSR2
     # - Squiz
     - Zend
+
+- name: Ensure Drupal Sonar config directory exists.
+  file: >
+    path=/etc/sonar
+    state=directory
+    mode=755
+
+- name: Copy Drupal Sonar properties files into place.
+  copy: >
+    src=sonar/sonar-{{ item }}.properties
+    dest=/etc/sonar/sonar-{{ item }}.properties
+    mode=644
+  with_items: drupal_versions

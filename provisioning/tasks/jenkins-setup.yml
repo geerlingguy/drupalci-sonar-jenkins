@@ -14,20 +14,22 @@
     }
   notify: restart jenkins
 
-- name: Copy in the Drupal7 Jenkins job.
+- name: Copy in the Drupal Jenkins job templates.
   copy: >
-    src=jenkins/Drupal7.xml
-    dest={{ workspace }}/Drupal7.xml
+    src=jenkins/Drupal{{ item }}.xml
+    dest={{ workspace }}/Drupal{{ item }}.xml
+  with_items: drupal_versions
   notify: restart jenkins
 
 # SEE: http://stackoverflow.com/a/9954283/100134
-- name: Import the Jenkins job for Drupal 7.
+- name: Import the Jenkins jobs.
   shell: >
     java -jar {{ jenkins_jar_location }} -s http://{{ inventory_hostname }}:8080/
-    create-job Drupal7 < {{ workspace }}/Drupal7.xml
+    create-job "Drupal {{ item }}" < {{ workspace }}/Drupal{{ item }}.xml
   register: import
   changed_when: "import.stdout and 'already exists' not in import.stdout"
   # TODO - Also use 'or' condition for initial install... what to expect?
   # failed: [jenkins] => {"changed": true, "cmd": "java -jar /opt/jenkins-cli.jar -s http://jenkins:8080/ create-job Drupal7 < /root/Drupal7.xml ", "delta": "0:00:01.613581", "end": "2014-01-28 10:39:55.493576", "failed": true, "failed_when_result": true, "item": "", "rc": 0, "start": "2014-01-28 10:39:53.879995", "stdout_lines": []}
   failed_when: "import.stderr and 'already exists' not in import.stderr"
+  with_items: drupal_versions
   notify: restart jenkins

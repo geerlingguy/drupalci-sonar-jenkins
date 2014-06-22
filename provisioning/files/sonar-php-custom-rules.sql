@@ -7,8 +7,8 @@
 #
 # See: https://drupal.org/node/2082563
 
-# Insert new 'Drupal 7' ruleset (should be id 8).
-INSERT INTO rules_profiles VALUES (NULL, 'Drupal 7', 'php', 'All PHPMD Rules', 1, 0);
+# Insert new 'Drupal' ruleset (should be id 8).
+INSERT INTO rules_profiles VALUES (NULL, 'Drupal', 'php', 'All PHPMD Rules', 1, 0);
 
 # Insert custom rules for PHP Codesniffer into the properties table.
 INSERT INTO properties VALUES (NULL, 'sonar.phpCodesniffer.customRules.definition', NULL, '<?xml version="1.0" encoding="UTF-8"?>

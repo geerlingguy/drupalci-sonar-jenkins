@@ -5,35 +5,48 @@
     dest=/usr/local/sonar/extensions/plugins/{{ sonar_php_plugin_jar }}
   notify: restart sonar
 
-- name: Check if Sonar's database is already configured correctly.
-  shell: >
-    mysql -u {{ sonar_mysql_user }} -p{{ sonar_mysql_password }} -e
-    "SELECT COUNT(DISTINCT table_name) FROM information_schema.columns WHERE table_schema='{{ sonar_mysql_database }}'"
-  register: sonar_database_tables
-  changed_when: false
-
 - name: Wait for Sonar to start.
   wait_for: port=9000 delay=30
-  when: "'0' in sonar_database_tables.stdout"
+
+- name: Check if Sonar's database is already configured correctly.
+  shell: >
+    mysql -u {{ sonar_mysql_user }} -p{{ sonar_mysql_password }} {{ sonar_mysql_database }} -e
+    "SELECT COUNT(*) FROM properties WHERE text_value='Drupal 7'"
+  register: sonar_setup
+  changed_when: false
+  failed_when: false
+
+- name: Wait for Sonar to start (again).
+  wait_for: port=9000 delay=30
+  when: "'0' in sonar_setup.stdout"
+
+- name: Copy Sonar database provisioning scripts to temp directory.
+  copy: >
+    src={{ item }}
+    dest=/tmp/{{ item }}
+  when: "'0' in sonar_setup.stdout"
+  with_items:
+    - sonar-php-custom-rules.sql
+    - sonar-php-profile-setup.sql
 
 # Add in Drupal custom rulesets (if using v1.2 of plugin).
 # See: http://jira.codehaus.org/browse/SONARPHP-270 (for v2.x).
 - name: Set up Sonar MySQL database.
   shell: >
     mysql -u {{ sonar_mysql_user}} -p{{ sonar_mysql_password }} {{ sonar_mysql_database }}
-    < /vagrant/provisioning/files/sonar-php-custom-rules.sql
-  when: "'0' in sonar_database_tables.stdout"
+    < /tmp/sonar-php-custom-rules.sql
+  when: "'0' in sonar_setup.stdout"
 
 - name: Restart Sonar to pick up new rules.
   service: name=sonar state=restarted
-  when: "'0' in sonar_database_tables.stdout"
+  when: "'0' in sonar_setup.stdout"
 
 - name: Wait for Sonar to start (again).
   wait_for: port=9000 delay=30
-  when: "'0' in sonar_database_tables.stdout"
+  when: "'0' in sonar_setup.stdout"
 
 - name: Set up Sonar MySQL database (again).
   shell: >
     mysql -u {{ sonar_mysql_user}} -p{{ sonar_mysql_password }} {{ sonar_mysql_database }}
-    < /vagrant/provisioning/files/sonar-php-profile-setup.sql
-  when: "'0' in sonar_database_tables.stdout"
+    < /tmp/sonar-php-profile-setup.sql
+  when: "'0' in sonar_setup.stdout"

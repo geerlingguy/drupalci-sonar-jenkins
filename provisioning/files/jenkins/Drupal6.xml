@@ -13,7 +13,7 @@
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>7.x</name>
+        <name>6.x</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -38,7 +38,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.plugins.sonar.SonarRunnerBuilder plugin="sonar@2.1">
-      <project>/etc/sonar/sonar-7.properties</project>
+      <project>/etc/sonar/sonar-6.properties</project>
       <properties></properties>
       <javaOpts></javaOpts>
       <jdk>(Inherit From Job)</jdk>
