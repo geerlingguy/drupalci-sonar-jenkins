@@ -1,15 +1,12 @@
-# Jenkins and SonarQube Drupal CI and Static Code Analysis VMs
+# Jenkins and SonarQube Drupal CI and Static Code Analysis
 
 TODO: Insert screenshot.
 
 This Vagrant configuration (with Ansible for provisioning) will install Jenkins, PHP, SonarQube, and Drupal CI profiles for code analysis (along with a bunch of other required software).
 
+How is this helpful? It's easy to track things like code complexity, lines of code, comment percentage, coding standards compliance, and test coverage over time. Code quality helps make Drupal more maintainable, especially as the project continues to grow!
+
 View a live demo at [drupalci.midwesternmac.com](http://drupalci.midwesternmac.com/).
-
-## TODO
-
-  - Convert from using PEAR to Composer (some work done, but things are not all working).
-  - Upgrade to Sonar 4.x (currently on hold because PHP 2.1 plugin doesn't allow custom sniffs).
 
 ## Quick Start Guide
 
