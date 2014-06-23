@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+Drupal 8 Phing test runner configuration.
+
+This Phing test configuration can be used with Jenkins by creating a new Phing
+task, pointing it to this XML file, and running the 'test' target.
+
+Running the default 'test' target requires the following to be installed:
+    - Via package manager (yum/apt-get)
+        - php (+ php-devel, php-xml, php-pear)
+    - Via PEAR
+        - pear install phpunit/PHPUnit
+        - pear install phing/phing
+
+@author: Jeff Geerling
+ -->
+
+<project name="Drupal8" default="test">
+
+    <!-- Target: build -->
+    <target name="test"
+            depends="init,
+                     clean,
+                     phpunit" />
+
+    <!-- # Build targets ################################################### -->
+
+    <!-- Target: init
+    Set up directories and filesets. -->
+    <target name="init"
+            depends="setup-dirs"
+            unless="project.initialized" />
+
+    <!-- Target: clean -->
+    <target name="clean"
+            description="Clean up and create artifact directories"
+            depends="setup-dirs"
+            unless="project.cleaned">
+        <delete dir="${project.logdir}" quiet="true" />
+        <mkdir dir="${project.logdir}"/>
+        <delete dir="${project.artifacts}" quiet="true" />
+        <mkdir dir="${project.artifacts}"/>
+        <property name="project.cleaned" value="true" />
+        <property name="project.cleaned" value="${project.deploy}" />
+    </target>
+
+    <!-- Target: phpunit -->
+    <!-- TODO: cd into `drupal/core`, then run `./vendor/bin/phpunit` -->
+    <target name="phpunit">
+        <phpunit haltonfailure="true" printsummary="true">
+            <formatter todir="${project.logdir}" type="xml"/>
+            <batchtest>
+                <fileset dir="${project.drupaldir}">
+                    <include name="**/*Test.php"/>
+                </fileset>
+            </batchtest>
+            <formatter type="xml" todir="report" outfile="logfile.xml"/>
+        </phpunit>
+        <phpunitreport infile="${project.builddir}/logfile.xml"
+                  styledir="/usr/share/php/data/phing/etc"
+                  format="frames"
+                  todir="${project.builddir}"/>
+    </target>
+
+    <!-- # Init targets #################################################### -->
+
+    <!-- Target: setup-dirs -->
+    <target name="setup-dirs">
+        <property name="project.logdir" value="${project.builddir}/logs" />
+        <property name="project.artifacts" value="${project.builddir}/artifacts" />
+        <property name="project.drupaldir" value="${project.builddir}/drupal" />
+        <property name="project.sitesdir" value="${project.builddir}/drupal/sites" />
+    </target>
+
+</project>

@@ -39,3 +39,16 @@
   failed_when: "import.stderr and 'already exists' not in import.stderr"
   with_items: drupal_versions
   notify: restart jenkins
+
+- name: Ensure Drupal Jenkins phing config directory exists.
+  file: >
+    path=/etc/jenkins
+    state=directory
+    mode=755
+
+- name: Copy Drupal Jenkins phing files into place.
+  copy: >
+    src=jenkins/Drupal{{ item }}-phing.xml
+    dest=/etc/jenkins/Drupal{{ item }}-phing.xml
+    mode=644
+  with_items: drupal_versions

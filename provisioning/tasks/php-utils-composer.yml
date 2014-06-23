@@ -12,7 +12,7 @@
   command: "/usr/local/bin/composer global require {{ item }} --prefer-dist"
   with_items:
     # Specify an exact version to prevent composer slowness.
-    - phpunit/phpunit=3.7.32
+    # - phpunit/phpunit=3.7.32
     - phploc/phploc=2.0.4
     - phpmd/phpmd=1.4.1
     - sebastian/phpcpd=1.4.3

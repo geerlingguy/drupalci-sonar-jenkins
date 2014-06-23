@@ -74,7 +74,6 @@ php_pear_channels:
   - pear.phpdoc.org
   - pear.phing.info
 php_pear_libraries:
-  - phpunit/PHPUnit
   - phpunit/phpcpd
   - phpunit/phploc
   - phpmd/PHP_PMD

@@ -18,6 +18,7 @@
     - geerlingguy.jenkins
     - geerlingguy.php
     - geerlingguy.php-pear
+    - geerlingguy.composer
     - geerlingguy.sonar-runner
     - geerlingguy.sonar
 

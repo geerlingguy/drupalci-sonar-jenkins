@@ -6,6 +6,11 @@ This Vagrant configuration (with Ansible for provisioning) will install Jenkins,
 
 View a live demo at [drupalci.midwesternmac.com](http://drupalci.midwesternmac.com/).
 
+## TODO
+
+  - Convert from using PEAR to Composer (some work done, but things are not all working).
+  - Upgrade to Sonar 4.x (currently on hold because PHP 2.1 plugin doesn't allow custom sniffs).
+
 ## Quick Start Guide
 
 ### 1 - Install dependencies (VirtualBox, Vagrant, Ansible)
