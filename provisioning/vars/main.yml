@@ -23,6 +23,7 @@ firewall_additional_rules:
   - "iptables -A INPUT -p tcp --dport 4949 -s 167.88.120.81 -j ACCEPT"
 
 # Munin configuration.
+munin_node_host_name: "{{ inventory_hostname }}"
 munin_node_allowed_ips:
   - '^167\.88\.120\.81$'
 

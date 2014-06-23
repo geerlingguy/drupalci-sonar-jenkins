@@ -1,8 +1,13 @@
 ---
+- name: Check if Sonar Jenkins configuration file already exists.
+  stat: path=/var/lib/jenkins/hudson.plugins.sonar.SonarPublisher.xml
+  register: sonar_config_file
+
 - name: Copy Sonar Jenkins configuration to server.
   template: >
     src={{ item.src }}
     dest={{ item.dest }}
+    backup=yes
   with_items:
     - {
       src: jenkins/hudson.plugins.sonar.SonarPublisher.xml.j2,
@@ -12,6 +17,7 @@
       src: jenkins/hudson.plugins.sonar.SonarRunnerInstallation.xml.j2,
       dest: /var/lib/jenkins/hudson.plugins.sonar.SonarRunnerInstallation.xml
     }
+  when: sonar_config_file.stat.exists == false
   notify: restart jenkins
 
 - name: Copy in the Drupal Jenkins job templates.
