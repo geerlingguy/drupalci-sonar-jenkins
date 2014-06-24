@@ -1,6 +1,6 @@
 # Jenkins and SonarQube Drupal CI and Static Code Analysis
 
-TODO: Insert screenshot.
+<img src="https://raw.githubusercontent.com/geerlingguy/drupalci-sonar-jenkins/master/screenshot.jpg" alt="Drupal CI SonarQube Dashboard" />
 
 This Vagrant configuration (with Ansible for provisioning) will install Jenkins, PHP, SonarQube, and Drupal CI profiles for code analysis (along with a bunch of other required software).
 
