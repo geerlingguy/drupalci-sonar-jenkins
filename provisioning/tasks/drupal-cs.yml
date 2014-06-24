@@ -17,20 +17,6 @@
     creates=/var/lib/jenkins/.composer/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/Drupal/ruleset.xml
   sudo: yes
 
-- name: Delete certain standards we don't yet need or use.
-  file: >
-    path=/var/lib/jenkins/.composer/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/{{ item }}
-    state=absent
-  with_items:
-    # - Generic
-    - MySource
-    - PHPCS
-    # - PEAR
-    # - PSR1
-    # - PSR2
-    # - Squiz
-    - Zend
-
 - name: Ensure Drupal Sonar config directory exists.
   file: >
     path=/etc/sonar
