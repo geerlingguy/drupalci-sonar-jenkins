@@ -17,15 +17,15 @@
     - geerlingguy.java
     - geerlingguy.jenkins
     - geerlingguy.php
-    - geerlingguy.php-pear
     - geerlingguy.composer
     - geerlingguy.sonar-runner
     - geerlingguy.sonar
 
   tasks:
-    - include: tasks/drupal-cs.yml tags=drupal
-    - include: tasks/jenkins-setup.yml tags=setup
-    - include: tasks/sonar-php.yml tags=sonar
+    - include: tasks/php-utils-composer.yml
+    - include: tasks/drupal-cs.yml
+    - include: tasks/jenkins-setup.yml
+    - include: tasks/sonar-php.yml
 
     - name: Ensure Apache is not running.
       service: name=httpd state=stopped

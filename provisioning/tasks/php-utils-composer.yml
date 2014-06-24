@@ -1,23 +1,9 @@
 ---
-# NOTE: This method works fine, but some of the versions used here don't seem to
-# play nice with Jenkins, phing, etc., so these build steps shouldn't be used
-# unless you're willing to twiddle with job settings quite a bit and be ready
-# for many hours of 'fun' :-).
-
-# NOTE 2: This playbook requires geerlingguy.composer role.
-
-# When installing dependencies, use --prefer-dist so composer won't try re-
-# downloading everything on every update (instead, it keeps a zip file).
+# Use --prefer-dist so composer won't try re-downloading every update.
 - name: Install dependencies via Composer.
-  command: "/usr/local/bin/composer global require {{ item }} --prefer-dist"
-  with_items:
-    # Specify an exact version to prevent composer slowness.
-    # - phpunit/phpunit=3.7.32
-    - phploc/phploc=2.0.4
-    - phpmd/phpmd=1.4.1
-    - sebastian/phpcpd=1.4.3
-    - squizlabs/php_codesniffer=1.5.2
-    - phing/phing=2.7.0
+  command: >
+    /usr/local/bin/composer global require {{ item }} --prefer-dist
+  with_items: composer_global_installs
   register: composer
   changed_when: "'Nothing to install or update' not in composer.stdout"
   environment:
@@ -25,8 +11,24 @@
     # dependencies to Jenkins' .composer directory instead of root's.
     COMPOSER_VENDOR_DIR: /var/lib/jenkins/.composer/vendor
 
-- name: Symlink phing binary to /usr/local/bin.
-  file: src=/var/lib/jenkins/.composer/vendor/bin/phing dest=/usr/bin/phing state=link
+# TODO: Add in phpmd, phpcpd, etc.
+- name: Symlink binaries so Jenkins and Sonar Runner can see them easily.
+  file: >
+    src=/var/lib/jenkins/.composer/vendor/bin/{{ item }}
+    dest=/usr/bin/{{ item }}
+    state=link
+  with_items:
+    - pdepend
+    - phing
+    - phpcpd
+    - phpcs
+    - phpmd
+    - phpunit
 
 - name: Change ownership of entire Jenkins .composer directory.
-  file: path=/var/lib/jenkins/.composer state=directory owner=jenkins group=jenkins mode=744
+  file: >
+    path=/var/lib/jenkins/.composer
+    state=directory
+    owner=jenkins
+    group=jenkins
+    mode=755

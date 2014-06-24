@@ -58,27 +58,18 @@ php_packages:
   - php
   - php-devel
   - php-xml
-  - php-pear
-  - ImageMagick
 php_memory_limit: "512M"
 php_max_execution_time: "120"
 # Hack to stop restarting Apache.
 php_webserver_daemon: ntpd
 
-php_pear_channels:
-  - pear.phpunit.de
-  - pear.symfony.com
-  - pear.netpirates.net
-  - pear.phpmd.org
-  - pear.pdepend.org
-  - pear.phpdoc.org
-  - pear.phing.info
-php_pear_libraries:
-  - phpunit/phpcpd
-  - phpunit/phploc
-  - phpmd/PHP_PMD
-  - PHP_CodeSniffer
-  - phing/phing
+# Composer configuration.
+composer_global_installs:
+  - phpunit/phpunit=3.7.32
+  - phpmd/phpmd=1.5.0
+  - sebastian/phpcpd=2.0.0
+  - squizlabs/php_codesniffer=1.5.3
+  - phing/phing=2.7.0
 
 # MySQL configuration.
 mysql_max_allowed_packet: "32M"
