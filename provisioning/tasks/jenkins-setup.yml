@@ -38,6 +38,7 @@
   # failed: [jenkins] => {"changed": true, "cmd": "java -jar /opt/jenkins-cli.jar -s http://jenkins:8080/ create-job Drupal7 < /root/Drupal7.xml ", "delta": "0:00:01.613581", "end": "2014-01-28 10:39:55.493576", "failed": true, "failed_when_result": true, "item": "", "rc": 0, "start": "2014-01-28 10:39:53.879995", "stdout_lines": []}
   failed_when: "import.stderr and 'already exists' not in import.stderr"
   with_items: drupal_versions
+  when: sonar_config_file.stat.exists == false
   notify: restart jenkins
 
 - name: Ensure Drupal Jenkins phing config directory exists.
