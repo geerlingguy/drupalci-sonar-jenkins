@@ -7,6 +7,10 @@
   vars_files:
     - vars/main.yml
 
+  pre_tasks:
+    - name: Ensure unzip is installed.
+      yum: name=unzip state=present
+
   roles:
     - geerlingguy.firewall
     - geerlingguy.repo-epel
