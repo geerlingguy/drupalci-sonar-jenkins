@@ -4,8 +4,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "centos64"
-  config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box"
+  config.vm.box = "geerlingguy/centos6"
+  config.ssh.insert_key = false
 
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--name", "drupalci.dev"]
