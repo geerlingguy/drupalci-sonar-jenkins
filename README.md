@@ -15,7 +15,7 @@ View a live demo at [drupalci.midwesternmac.com](http://drupalci.midwesternmac.c
   1. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
   2. Download and install [Vagrant](http://www.vagrantup.com/downloads.html).
   3. [Mac/Linux only] Install [Ansible](http://docs.ansible.com/intro_installation.html).
-  4. Install Ansible roles: `ansible-galaxy install geerlingguy.firewall, geerlingguy.repo-epel, geerlingguy.repo-remi, geerlingguy.ntp, geerlingguy.git, geerlingguy.java, geerlingguy.jenkins, geerlingguy.php, geerlingguy.php-pear, geerlingguy.sonar-runner, geerlingguy.sonar`
+  4. Install Ansible roles: `ansible-galaxy install -r requirements.txt` (inside this directory).
 
 Note for Windows users: *This guide assumes you're on a Mac or Linux host. Windows support may be added when I get a little more time; the main difference is Ansible needs to be bootstrapped from within the VM after it's created. See [JJG-Ansible-Windows](https://github.com/geerlingguy/JJG-Ansible-Windows) for more information.*
 
