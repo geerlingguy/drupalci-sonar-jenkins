@@ -6,8 +6,6 @@ This Vagrant configuration (with Ansible for provisioning) will install Jenkins,
 
 How is this helpful? It's easy to track things like code complexity, lines of code, comment percentage, coding standards compliance, and test coverage over time. Code quality helps make Drupal more maintainable, especially as the project continues to grow!
 
-View a live demo at [drupalci.midwesternmac.com](http://drupalci.midwesternmac.com/).
-
 ## Quick Start Guide
 
 ### 1 - Install dependencies (VirtualBox, Vagrant, Ansible)
