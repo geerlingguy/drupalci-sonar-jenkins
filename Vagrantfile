@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
   end
 
-  config.vm.hostname = "drupalci"
+  config.vm.hostname = "drupalci.dev"
   config.vm.network :private_network, ip: "192.168.99.9"
 
   # Set the name of the VM. See: http://stackoverflow.com/a/17864388/100134
