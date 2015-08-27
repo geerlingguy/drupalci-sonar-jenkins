@@ -49,7 +49,7 @@ sonar_download_url: http://dist.sonar.codehaus.org/sonar-3.7.4.zip
 sonar_version_directory: sonar-3.7.4
 #sonar_mysql_allowed_hosts: [] (set in host_vars)
 
-sonar_php_plugin_url: http://repository.codehaus.org/org/codehaus/sonar-plugins/php/sonar-php-plugin/1.2/sonar-php-plugin-1.2.jar
+sonar_php_plugin_url: http://downloads.sonarsource.com/plugins/org/codehaus/sonar-plugins/php/sonar-php-plugin/1.2/sonar-php-plugin-1.2.jar
 sonar_php_plugin_jar: sonar-php-plugin-1.2.jar
 
 # PHP configuration.
