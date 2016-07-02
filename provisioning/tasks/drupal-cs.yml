@@ -15,7 +15,7 @@
     cp -r {{ workspace }}/coder/coder_sniffer/Drupal
     /var/lib/jenkins/.composer/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/Drupal
     creates=/var/lib/jenkins/.composer/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/Drupal/ruleset.xml
-  sudo: yes
+  become: yes
 
 - name: Ensure Drupal Sonar config directory exists.
   file: >
@@ -28,4 +28,4 @@
     src=sonar/sonar-{{ item }}.properties
     dest=/etc/sonar/sonar-{{ item }}.properties
     mode=644
-  with_items: drupal_versions
+  with_items: "{{ drupal_versions }}"

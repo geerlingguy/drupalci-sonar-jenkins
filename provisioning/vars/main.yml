@@ -5,7 +5,6 @@ workspace: /root
 
 # Each version supported requires DrupalX.xml and sonar-x.properties files.
 drupal_versions:
-  - "6"
   - "7"
   - "8"
 
@@ -64,6 +63,8 @@ php_max_execution_time: "120"
 php_webserver_daemon: ntpd
 
 # Composer configuration.
+composer_global_packages:
+  - { name: hirak/prestissimo, release: '^0.3' }
 composer_global_installs:
   - pdepend/pdepend=~1.1
   - phpunit/phpunit=3.7.32

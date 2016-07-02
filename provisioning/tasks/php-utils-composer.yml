@@ -3,7 +3,7 @@
 - name: Install dependencies via Composer.
   command: >
     /usr/local/bin/composer global require {{ item }} --prefer-dist
-  with_items: composer_global_installs
+  with_items: "{{ composer_global_installs }}"
   register: composer
   changed_when: "'Nothing to install or update' not in composer.stdout"
   environment:

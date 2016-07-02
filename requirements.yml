@@ -1,0 +1,13 @@
+---
+- src: geerlingguy.firewall
+- src: geerlingguy.repo-epel
+- src: geerlingguy.repo-remi
+- src: geerlingguy.ntp
+- src: geerlingguy.munin-node
+- src: geerlingguy.git
+- src: geerlingguy.java
+- src: geerlingguy.jenkins
+- src: geerlingguy.php
+- src: geerlingguy.composer
+- src: geerlingguy.sonar-runner
+- src: geerlingguy.sonar
