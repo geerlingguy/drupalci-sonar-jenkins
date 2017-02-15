@@ -9,9 +9,9 @@
     dest={{ item.dest }}
     backup=yes
   with_items:
-    - src: jenkins/hudson.plugins.sonar.SonarPublisher.xml.j2,
+    - src: jenkins/hudson.plugins.sonar.SonarPublisher.xml.j2
       dest: /var/lib/jenkins/hudson.plugins.sonar.SonarPublisher.xml
-    - src: jenkins/hudson.plugins.sonar.SonarRunnerInstallation.xml.j2,
+    - src: jenkins/hudson.plugins.sonar.SonarRunnerInstallation.xml.j2
       dest: /var/lib/jenkins/hudson.plugins.sonar.SonarRunnerInstallation.xml
   when: sonar_config_file.stat.exists == false
   notify: restart jenkins
