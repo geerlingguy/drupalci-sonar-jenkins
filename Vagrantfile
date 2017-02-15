@@ -15,15 +15,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   if Vagrant.has_plugin?('vagrant-auto_network')
-    ip = '0.0.0.0'
-    config.vm.network :private_network, ip: ip, auto_network: true
+    vagrant_ip = '0.0.0.0'
+    config.vm.network :private_network, ip: vagrant_ip, auto_network: true
   else
-    ip = '192.168.99.9'
-    config.vm.network :private_network, ip: ip
+    vagrant_ip = '192.168.99.9'
+    config.vm.network :private_network, ip: vagrant_ip
   end
 
   config.vm.hostname = "drupalci.dev"
-  aliases = [config.vm.hostname, ip]
+  aliases = [config.vm.hostname, vagrant_ip]
 
   if Vagrant.has_plugin?('vagrant-hostsupdater')
     config.hostsupdater.aliases = aliases
