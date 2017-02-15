@@ -1,7 +1,7 @@
 ---
 mysql_root_password: root
 
-sonar_host: 192.168.99.9
+sonar_host: "{{ vagrant_ip }}"
 sonar_mysql_password: sonar
 sonar_mysql_allowed_hosts:
   - "{{ sonar_host }}"
