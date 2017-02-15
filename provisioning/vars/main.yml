@@ -44,7 +44,7 @@ sonar_port: 9000
 # sonar_mysql_host: "{{ sonar_host }}" (set in inventory)
 sonar_mysql_port: 3306
 
-sonar_download_url: http://dist.sonar.codehaus.org/sonar-3.7.4.zip
+sonar_download_url: http://downloads.sonarsource.com/sonarqube/sonar-3.7.4.zip
 sonar_version_directory: sonar-3.7.4
 #sonar_mysql_allowed_hosts: [] (set in host_vars)
 
