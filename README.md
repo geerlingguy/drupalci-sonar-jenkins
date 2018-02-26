@@ -1,4 +1,6 @@
-# Jenkins and SonarQube Drupal CI and Static Code Analysis
+# DEPRECATED - Jenkins and SonarQube Drupal CI and Static Code Analysis
+
+> **DEPRECATION NOTICE**: This project has been deprecated as of 2018; please see [Issue #27: Deprecate this project](https://github.com/geerlingguy/drupalci-sonar-jenkins/issues/27) for details and further discussion.
 
 <img src="https://raw.githubusercontent.com/geerlingguy/drupalci-sonar-jenkins/master/screenshot.jpg" alt="Drupal CI SonarQube Dashboard" />
 
@@ -39,4 +41,4 @@ Note: *If there are any errors during the course of running `vagrant up`, and it
 
 ## Author Information
 
-This project was created in 2014 by [Jeff Geerling](http://jeffgeerling.com/), author of [Ansible for DevOps](http://www.ansiblefordevops.com/).
+This project was created in 2014 by [Jeff Geerling](https://jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
