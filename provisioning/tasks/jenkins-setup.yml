@@ -26,6 +26,7 @@
 # SEE: http://stackoverflow.com/a/9954283/100134
 - name: Import the Jenkins jobs.
   shell: >
+    java -jar {{ jenkins_jar_location }} -s http://{{ inventory_hostname }}:8080 login --username "$JCLIUSER" --password "$JCLIPASSWD"
     java -jar {{ jenkins_jar_location }} -s http://{{ inventory_hostname }}:8080/
     create-job "Drupal {{ item }}" < {{ workspace }}/Drupal{{ item }}.xml
   register: import
